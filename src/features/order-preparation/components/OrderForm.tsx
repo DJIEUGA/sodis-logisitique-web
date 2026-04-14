@@ -691,7 +691,7 @@ export function OrderForm() {
       </Card>
 
       <Dialog open={confirmOpen} onOpenChange={setConfirmOpen}>
-        <DialogContent>
+        <DialogContent className="bg-white">
           <DialogHeader>
             <DialogTitle>Confirmer la soumission de commande</DialogTitle>
             <DialogDescription>
@@ -710,7 +710,7 @@ export function OrderForm() {
               <span className="font-semibold text-[--ink]">Destination :</span> {pendingPayload?.destination}
             </p>
             <p>
-              <span className="font-semibold text-[--ink]">Validation :</span> Les champs requis passent les verifications du schema.
+              <span className="font-semibold text-[--ink]">Validation :</span> Les champs requis remplis.
             </p>
           </div>
 
