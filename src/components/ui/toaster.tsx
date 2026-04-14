@@ -14,7 +14,7 @@ export function Toaster() {
   return (
     <ToastProvider>
       {toasts.map(({ id, title, description, action, ...props }) => (
-        <Toast
+        <Toast className="bg-white"
           key={id}
           {...props}
           onOpenChange={(open) => {
