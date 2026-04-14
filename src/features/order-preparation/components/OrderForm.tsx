@@ -622,7 +622,7 @@ export function OrderForm() {
 
   return (
     <>
-      <Card className="mx-auto w-full max-w-4xl">
+      <Card className="mx-auto w-full max-w-4x">
         <CardHeader className="p-4 pb-2 md:p-5 md:pb-2">
           <CardTitle>Preparation des donnees d'expedition</CardTitle>
           <CardDescription>Utilisez la barre de controle et validez l'etat du payload en temps reel.</CardDescription>
