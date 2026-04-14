@@ -1,0 +1,58 @@
+@import "tailwindcss";
+
+:root {
+  --page: #f6f8fa;
+  --surface: #ffffff;
+  --surface-2: #f6f8fa;
+  --surface-3: #eef2f6;
+  --ink: #1f2328;
+  --ink-soft: #57606a;
+  --line: #d0d7de;
+  --line-strong: #afb8c1;
+  --brand: #0969da;
+  --brand-strong: #0550ae;
+  --brand-soft: #ddf4ff;
+  --success: #2da44e;
+  --success-strong: #2c974b;
+
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    "Noto Sans",
+    Helvetica,
+    Arial,
+    sans-serif,
+    "Apple Color Emoji",
+    "Segoe UI Emoji";
+  line-height: 1.45;
+  font-weight: 400;
+  color: var(--ink);
+  background-color: var(--page);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: var(--page);
+  background-image:
+    linear-gradient(to right, rgba(208, 215, 222, 0.45) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(208, 215, 222, 0.45) 1px, transparent 1px);
+  background-size: 28px 28px;
+  color: var(--ink);
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.font-display {
+  font-family: inherit;
+}
