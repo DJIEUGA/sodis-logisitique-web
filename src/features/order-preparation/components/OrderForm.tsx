@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AnimatePresence, motion } from "framer-motion";
-import { AlertCircle, CheckCircle2, RefreshCw } from "lucide-react";
+import { AlertCircle, CheckCircle2, RefreshCw, Loader2 } from "lucide-react";
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { useForm } from "react-hook-form";
 
@@ -185,6 +185,7 @@ export function OrderForm() {
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [pendingPayload, setPendingPayload] = useState<OrderSubmissionPayload | null>(null);
   const [lastSubmittedId, setLastSubmittedId] = useState<string | null>(null);
+  const [isConfirmSubmitting, setIsConfirmSubmitting] = useState(false);
   const [stepSaveStatus, setStepSaveStatus] = useState<string>("Le brouillon s'enregistre automatiquement apres chaque etape validee.");
   const [validationHint, setValidationHint] = useState<string | null>(null);
   const [compactMode, setCompactMode] = useState(true);
@@ -267,13 +268,16 @@ export function OrderForm() {
   });
 
   const confirmSubmission = async () => {
-    if (!pendingPayload) {
+    if (!pendingPayload || isConfirmSubmitting) {
       return;
     }
 
+    const payloadToSubmit = pendingPayload;
+    setIsConfirmSubmitting(true);
+
     try {
-      await submitOrder(pendingPayload);
-      const submittedOrderId = pendingPayload.orderId;
+      await submitOrder(payloadToSubmit);
+      const submittedOrderId = payloadToSubmit.orderId;
       setLastSubmittedId(submittedOrderId);
       form.reset(getDefaultValues());
       setCurrentStep(0);
@@ -293,6 +297,8 @@ export function OrderForm() {
         description: message,
         variant: "destructive",
       });
+    } finally {
+      setIsConfirmSubmitting(false);
     }
   };
 
@@ -710,20 +716,21 @@ export function OrderForm() {
               <span className="font-semibold text-[--ink]">Destination :</span> {pendingPayload?.destination}
             </p>
             <p>
-              <span className="font-semibold text-[--ink]">Validation :</span> Les champs requis remplis.
+              <span className="font-semibold text-[--ink]">Validation :</span> Champs requis remplis.
             </p>
           </div>
 
           <DialogFooter>
-            <Button variant="outline" onClick={() => setConfirmOpen(false)} disabled={isSubmitting}>
+            <Button variant="outline" onClick={() => setConfirmOpen(false)} disabled={isSubmitting || isConfirmSubmitting}>
               Annuler
             </Button>
             <Button
               onClick={confirmSubmission}
-              disabled={isSubmitting}
-              className="min-w-36 bg-[--brand] text-white shadow-sm hover:bg-[--brand-strong] focus-visible:ring-[--brand]"
+              disabled={isSubmitting || isConfirmSubmitting}
+              className={`min-w-36 bg-slate-900 shadow-sm focus-visible:ring-[--brand] cursor-pointer`}
             >
-              Confirmer et soumettre
+              {isConfirmSubmitting ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
+              {isConfirmSubmitting ? "Envoi en cours..." : "Confirmer et soumettre"}
             </Button>
           </DialogFooter>
         </DialogContent>

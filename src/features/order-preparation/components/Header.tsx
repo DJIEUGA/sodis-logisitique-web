@@ -22,10 +22,10 @@ export function Header({ submissionTarget }: HeaderProps) {
 
         <div className="flex flex-col gap-2 py-1 rounded-xl border border-[--line]">
           <span className="bg-[--surface-2] px-3 text-xs font-semibold text-[--ink-soft]">
-            Cible d'integration : {targetLabel}
+            Cible d'integration : <b>{targetLabel}</b>
           </span>
           <span className="bg-[--surface-2] px-3 text-xs font-semibold text-[--ink-soft]">
-            Brouillon : par etape
+            Brouillon : <b>par etape</b>
           </span>
         </div>
       </div>
